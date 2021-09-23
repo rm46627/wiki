@@ -13,13 +13,16 @@ import (
 func main() {
 
 	// initializing data base
-	err := db.Init("data.db")
+	err := db.Initialize()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
+		fmt.Fprintf(os.Stderr, "%v\n", err.Error())
 		os.Exit(1)
 	}
 
+	defer db.Close()
+
 	// handling requests from client
+	http.HandleFunc("/", wiki.Handler)
 	http.HandleFunc("/view/", wiki.MakeHandler(wiki.ViewHandler))
 	http.HandleFunc("/edit/", wiki.MakeHandler(wiki.EditHandler))
 	http.HandleFunc("/save/", wiki.MakeHandler(wiki.SaveHandler))

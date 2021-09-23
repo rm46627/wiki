@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wiki</title>
+    <link rel="stylesheet" href="/assets/style4.css">
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome on my wiki!</h1>
+        <form action="/" method="POST">
+            <p>Find existing subpage or create a new one:</p>
+            <input type="text" name="title" required>
+            <div class="button"><input type="submit" value="Start editing"></div>
+        </form>
+        <hr>
+        <p>List of subpages:</p>
+        <ol class="lista">
+            {{range $Title := .Titles }}
+                <li><a href="/view/{{$Title}}">{{ $Title }}</a></li>
+            {{end}}
+        </ol>
+    </div>
+</body>
+
+</html>

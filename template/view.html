@@ -1,5 +1,25 @@
-<h1>{{.Title}}</h1>
-<img src="/assets/quokka.jpg" alt="image" width="500" height="333">
-<p><img src="/assets/kapibara.jpeg" alt="image2" width="500" height="333"></p>
-<p>[<a href="/edit/{{.Title}}">edit</a>]</p>
-<div>{{printf "%s" .Body}}</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wiki</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<div class="content">
+    <h1>{{.Title}}</h1>
+
+    <form action="/edit/{{.Title}}" method="GET">
+        <div class="button"><input type="submit" value="edit"></div>
+    </form>
+
+    <div>{{printf "%s" .Body}}</div>
+
+    <form action="/frontpage" method="GET">
+        <div class="button"><input type="submit" value="Frontpage"></div>
+    </form>
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+.content {
+    text-align: center;
+}
+
+.lista {
+    display: inline-block;
+    margin-left: -50px;
+    margin-top: -5px;
+    text-align: left;
+}
+
+hr {
+    width: 50%;
+}
+
+.button {
+    margin: 15px;
+}
