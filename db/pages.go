@@ -98,3 +98,12 @@ func PageByTitle(title string) (*Page, error) {
 	}
 	return &p, nil
 }
+
+// DeletePage make query for deleting page by given title.
+func DeletePage(title string) error {
+	_, err := Database.Exec("DELETE FROM pages WHERE title = ?", title)
+	if err != nil {
+		return fmt.Errorf("deleting page %s to db: %v", title, err)
+	}
+	return nil
+}

@@ -4,8 +4,7 @@
 
 .lista {
     display: inline-block;
-    margin-left: -50px;
-    margin-top: -5px;
+    margin: -5px 0 0 -50px;
     text-align: left;
 }
 

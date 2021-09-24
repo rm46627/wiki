@@ -26,6 +26,7 @@ func main() {
 	http.HandleFunc("/view/", wiki.MakeHandler(wiki.ViewHandler))
 	http.HandleFunc("/edit/", wiki.MakeHandler(wiki.EditHandler))
 	http.HandleFunc("/save/", wiki.MakeHandler(wiki.SaveHandler))
+	http.HandleFunc("/delete/", wiki.MakeHandler(wiki.DeleteHandler))
 
 	// files
 	fs := http.FileServer(http.Dir("assets/"))

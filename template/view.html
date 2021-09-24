@@ -8,13 +8,10 @@
 <body>
 <div class="content">
     <h1>{{.Title}}</h1>
-
-    <form action="/edit/{{.Title}}" method="GET">
-        <div class="button"><input type="submit" value="edit"></div>
-    </form>
-
     <div>{{printf "%s" .Body}}</div>
-
+    <form action="/edit/{{.Title}}" method="GET">
+        <div class="button"><input type="submit" value="Edit"></div>
+    </form>
     <form action="/frontpage" method="GET">
         <div class="button"><input type="submit" value="Frontpage"></div>
     </form>

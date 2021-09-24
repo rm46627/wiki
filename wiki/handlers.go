@@ -67,6 +67,15 @@ func SaveHandler(w http.ResponseWriter, r *http.Request, title string) {
 	http.Redirect(w, r, "/view/"+title, http.StatusFound)
 }
 
+// DeleteHandler handles request for deleting subpages from the database
+func DeleteHandler(w http.ResponseWriter, r *http.Request, title string) {
+	err := db.DeletePage(title)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "deleting %s page: %v\n", title, err)
+	}
+	http.Redirect(w, r, "/frontpage", http.StatusFound)
+}
+
 // MakeHandler extracts page title from the request and call a provided handler
 func MakeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -105,4 +114,4 @@ func getTitle(w http.ResponseWriter, r *http.Request) (string, error) {
 }
 
 var templates = template.Must(template.ParseFiles("template/edit.html", "template/view.html", "template/frontpage.html", "template/notfound.html"))
-var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
+var validPath = regexp.MustCompile("^/(edit|save|view|delete)/([a-zA-Z0-9]+)$")
