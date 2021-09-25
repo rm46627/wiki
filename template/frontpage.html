@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <title>wiki</title>
     <link rel="stylesheet" href="/assets/style.css">
@@ -16,8 +17,9 @@
         <hr>
         <p>List of subpages:</p>
         <ol class="lista">
-            {{range $Title := .Titles }}
-                <li><a href="/view/{{$Title}}">{{ $Title }}</a></li>
+            {{$titles := .Titles}}
+            {{range $index, $url := .URLs }}
+                <li><a href="/view/{{$url}}">{{index $titles $index }}</a></li>
             {{end}}
         </ol>
     </div>

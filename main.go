@@ -23,6 +23,7 @@ func main() {
 
 	// handling requests from client
 	http.HandleFunc("/", wiki.Handler)
+	http.HandleFunc("/frontpage", wiki.Handler)
 	http.HandleFunc("/view/", wiki.MakeHandler(wiki.ViewHandler))
 	http.HandleFunc("/edit/", wiki.MakeHandler(wiki.EditHandler))
 	http.HandleFunc("/save/", wiki.MakeHandler(wiki.SaveHandler))

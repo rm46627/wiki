@@ -11,12 +11,14 @@ import (
 // Page stores data for subpages
 type Page struct {
 	ID    int64
+	URL   string
 	Title string
 	Body  []byte
 }
 
 // Frontpage stores slice of strings of pages titles
 type Frontpage struct {
+	URLs   []string
 	Titles []string
 }
 
@@ -47,7 +49,7 @@ func Close() {
 
 // InsertPage make insert query to store data of page in db
 func InsertPage(p *Page) (int64, error) {
-	result, err := Database.Exec("INSERT INTO pages (title, body) VALUES (?, ?)", p.Title, p.Body)
+	result, err := Database.Exec("INSERT INTO pages (url, title, body) VALUES (?, ?, ?)", p.URL, p.Title, p.Body)
 	if err != nil {
 		return -1, fmt.Errorf("saving page %s to db: %v", p.Title, err)
 	}
@@ -60,50 +62,54 @@ func InsertPage(p *Page) (int64, error) {
 
 // UpdatePage make update query to edit existing page in database
 func UpdatePage(p *Page) error {
-	_, err := Database.Exec("UPDATE pages SET body = ? WHERE title = ?", p.Body, p.Title)
+	_, err := Database.Exec("UPDATE pages SET body = ? WHERE url = ?", p.Body, p.URL)
 	if err != nil {
-		return fmt.Errorf("updating page %s to db: %v", p.Title, err)
+		return fmt.Errorf("updating page %s to db: %v", p.URL, err)
 	}
 	return nil
 }
 
-// GetTitles make query for titles of last created 10 pages
-func GetTitles() (*Frontpage, error) {
-	rows, err := Database.Query("SELECT title FROM pages ORDER BY pageId DESC LIMIT 10")
+// GetPages make query for titles of last created 10 pages
+func GetPages() (*Frontpage, error) {
+	rows, err := Database.Query("SELECT url, title FROM pages ORDER BY pageId DESC LIMIT 10")
 	if err != nil {
 		return nil, fmt.Errorf("")
 	}
 	defer rows.Close()
-	slice := make([]string, 0, 10)
+
+	var urls []string
+	var titles []string
+	var u string
+	var t string
 	for rows.Next() {
-		var s string
-		if err := rows.Scan(&s); err != nil {
+		if err := rows.Scan(&u, &t); err != nil {
 			return nil, fmt.Errorf("error during scan each row: %v", err)
 		}
-		slice = append(slice, s)
+		urls = append(urls, u)
+		titles = append(titles, t)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, fmt.Errorf("error from the overall query: %v", err)
 	}
 
-	return &Frontpage{Titles: slice}, nil
+	return &Frontpage{URLs: urls, Titles: titles}, nil
 }
 
-// PageByTitle make query for a single row from pages
-func PageByTitle(title string) (*Page, error) {
+// PageByURL make query for a single row from pages
+func PageByURL(url string) (*Page, error) {
 	var p Page
-	row := Database.QueryRow("SELECT * FROM pages WHERE title = ?", title)
-	if err := row.Scan(&p.ID, &p.Title, &p.Body); err != nil {
-		return &p, fmt.Errorf("page title:%s scan error: %v", title, err)
+	row := Database.QueryRow("SELECT * FROM pages WHERE url = ?", url)
+	if err := row.Scan(&p.ID, &p.URL, &p.Title, &p.Body); err != nil {
+		return &p, fmt.Errorf("page url:%s scan error: %v", url, err)
 	}
 	return &p, nil
 }
 
 // DeletePage make query for deleting page by given title.
-func DeletePage(title string) error {
-	_, err := Database.Exec("DELETE FROM pages WHERE title = ?", title)
+func DeletePage(url string) error {
+	_, err := Database.Exec("DELETE FROM pages WHERE url = ?", url)
 	if err != nil {
-		return fmt.Errorf("deleting page %s to db: %v", title, err)
+		return fmt.Errorf("deleting page %s to db: %v", url, err)
 	}
 	return nil
 }

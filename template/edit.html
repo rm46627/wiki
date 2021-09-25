@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <title>wiki</title>
     <link rel="stylesheet" href="/assets/style.css">
@@ -9,12 +10,12 @@
 <div class="content">
     <h1>Editing {{.Title}}</h1>
 
-    <form action="/save/{{.Title}}" method="POST">
+    <form action="/save/{{.URL}}" method="POST">
         <div><textarea name="body" rows="20" cols="80">{{printf "%s" .Body}}</textarea></div>
         <div class="button"><input type="submit" value="Save"></div>
     </form>
 
-    <form action="/delete/{{.Title}}" method="GET">
+    <form action="/delete/{{.URL}}" method="GET">
         <div class="button"><input type="submit" value="Delete subpage"></div>
     </form>
 
