@@ -28,7 +28,7 @@ steps:
 - task: Go@0
   inputs:
     command: 'build'
-    arguments: 'build'
+    arguments: '-o build'
     workingDirectory: '$(Build.ArtifactStagingDirectory)'
 
 - task: Docker@2
