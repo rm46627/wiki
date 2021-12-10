@@ -1,5 +1,5 @@
 FROM golang:1.17
-WORKDIR /
+WORKDIR /wiki-web-6937
 COPY go.mod .
 COPY go.sum .
 RUN go mod download
