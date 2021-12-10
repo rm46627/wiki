@@ -33,5 +33,5 @@ func main() {
 	fs := http.FileServer(http.Dir("assets/"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
