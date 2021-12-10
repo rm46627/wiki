@@ -107,6 +107,7 @@ func renderFrontpage(w http.ResponseWriter, r *http.Request, f *db.Frontpage) {
 	}
 }
 
+/*
 func getTitle(w http.ResponseWriter, r *http.Request) (string, error) {
 	m := validPath.FindStringSubmatch(r.URL.Path)
 	if m == nil {
@@ -114,7 +115,7 @@ func getTitle(w http.ResponseWriter, r *http.Request) (string, error) {
 		return "", fmt.Errorf("invalid page title")
 	}
 	return m[2], nil
-}
+}*/
 
 // URLtoTitle convert url of subpage to its title.
 // It turns '~' from url to space character.

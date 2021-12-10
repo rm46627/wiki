@@ -7,17 +7,20 @@
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
+    
 <div class="content">
     <h1>{{.Title}}</h1>
-    <div>{{printf "%s" .Body}}</div>
+    <hr>
+    <div class="tekst">
+        {{printf "%s" .Body}}
+    </div>
     <form action="/edit/{{.URL}}" method="GET">
         <div class="button"><input type="submit" value="Edit"></div>
     </form>
     <form action="/frontpage" method="GET">
         <div class="button"><input type="submit" value="Frontpage"></div>
     </form>
-
 </div>
-</body>
 
+</body>
 </html>

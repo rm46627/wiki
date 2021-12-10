@@ -3,11 +3,17 @@
 }
 
 .lista {
+    text-align: center;
     display: inline-block;
-    margin: -5px 0 0 -50px;
-    text-align: left;
 }
-
+    
+.tekst {
+    padding-top: 15px;
+    text-align: justify;
+    width: 50%;
+    margin: auto;
+}
+    
 hr {
     width: 50%;
 }
