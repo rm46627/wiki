@@ -10,25 +10,25 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: CopyFiles@2
-  inputs:
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+
 - task: GoTool@0
   inputs:
     version: '1.17'
 - task: Go@0
   inputs:
     command: 'get'
-    arguments: 'github.com/go-sql-driver/mysql'
+    arguments: '-d'
+
 - task: Go@0
   inputs:
     command: 'build'
-    workingDirectory: '$(Build.ArtifactStagingDirectory)'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: CopyFiles@2
+  inputs:
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+     artifactName: drop
 
 - task: Docker@2
   displayName: 'Build and push the image to container registry'
