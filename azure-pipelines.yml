@@ -44,6 +44,7 @@ steps:
 
 - task: AzureWebAppContainer@1
   inputs:
+   appType: webApp
    appName: wiki-web-6937
    azureSubscription: 'Resource Manager - wiki'
    imageName: $(RegistryName)/$(webRepository):$(build.buildId)
