@@ -1,4 +1,4 @@
-FROM golang:1.17 AS base
+FROM golang:1.17-alpine
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
